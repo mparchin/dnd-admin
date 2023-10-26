@@ -6,7 +6,7 @@ if [ "$1" = "production" ]
     BRANCH="development"
 fi
 SERVER="91.107.242.150"
-ssh $SERVER "cd dnd-front && \
+ssh $SERVER "cd dnd-admin && \
 git switch $BRANCH && \
 git pull && \
 cd ../ && \
