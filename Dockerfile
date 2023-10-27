@@ -1,5 +1,5 @@
 FROM node:20-alpine3.17 as builder
-ARG VITE_SIMPLE_REST_URL
+ARG VITE_ODATA_ADDRESS
 WORKDIR /app
 COPY package.json .
 RUN yarn install --frozen-lockfile
