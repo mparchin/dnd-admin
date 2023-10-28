@@ -7,12 +7,14 @@ import { MenuBook, School, Accessible, Tag, Class } from "@mui/icons-material";
 import { NamedCreate, NamedEdit, NamedList } from "./Named";
 import { DescriptiveCreate, DescriptiveEdit } from "./Descriptive";
 
+const apiAddress = import.meta.env.VITE_ODATA_ADDRESS
+  ? import.meta.env.VITE_ODATA_ADDRESS
+  : "http://localhost/odata";
+
 export default function App() {
   const [dataProvider, setDataProvider] = useState<OdataDataProvider>();
   useEffect(() => {
-    odataProvider(import.meta.env.VITE_SIMPLE_REST_URL).then((p) =>
-      setDataProvider(p)
-    );
+    odataProvider(apiAddress).then((p) => setDataProvider(p));
     return () => {};
   }, []);
 

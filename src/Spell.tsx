@@ -20,6 +20,8 @@ import {
   AutocompleteArrayInput,
   Create,
   FilterLiveSearch,
+  ChipField,
+  useRecordContext,
 } from "react-admin";
 
 import { Stack } from "@mui/material";
@@ -38,7 +40,6 @@ export const SpellList = () => (
       </ReferenceField>
       <NumberField source="level" />
       <TextField source="book" />
-      <TextField source="spellList" />
       <BooleanField source="hasVerbalComponent" />
       <BooleanField source="hasSomaticComponent" />
       <TextField source="materials" />
@@ -66,8 +67,8 @@ export function SpellEdit() {
           <TextInput source="name" validate={required()} />
           <NumberInput source="level" min={0} max={9} validate={required()} />
           <TextInput source="book" />
-          <SelectInput
-            source="spellList"
+          <AutocompleteArrayInput
+            source="spellLists"
             validate={required()}
             choices={[
               { id: 0, name: "Arcane" },
@@ -133,8 +134,8 @@ export function SpellEdit() {
               { id: 5, name: "Charisma" },
             ]}
           />
-          <SelectInput
-            source="damageType"
+          <AutocompleteArrayInput
+            source="damageTypes"
             choices={[
               { id: 0, name: "Acid" },
               { id: 1, name: "Bludgeoning" },
