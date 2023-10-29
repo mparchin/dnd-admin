@@ -6,41 +6,40 @@ import {
   TextInput,
   required,
   Create,
-  FilterLiveSearch,
   SimpleForm,
 } from "react-admin";
 
-import { Stack } from "@mui/material";
+import { EditActions, SearchFilter } from "./Actions";
 
 export const NamedList = () => (
-  <List>
-    <Stack direction="row" justifyContent="space-around">
-      <FilterLiveSearch source="name" label="Search" />
-    </Stack>
+  <List
+    sort={{ field: "name", order: "ASC" }}
+    perPage={25}
+    filters={SearchFilter}
+  >
+    {/* <SearchAction /> */}
 
-    <Datagrid rowClick="edit">
-      <TextField source="id" />
+    <Datagrid rowClick="edit" bulkActionButtons={false}>
+      {/* <TextField source="id" /> */}
       <TextField source="name" />
     </Datagrid>
   </List>
 );
 
-export function NamedEdit() {
-  return (
-    <Edit>
-      <SimpleForm>
-        <TextInput source="name" validate={required()} />
-      </SimpleForm>
-    </Edit>
-  );
-}
+const SimpleEditForm = () => (
+  <SimpleForm>
+    <TextInput source="name" validate={required()} />
+  </SimpleForm>
+);
 
-export function NamedCreate() {
-  return (
-    <Create>
-      <SimpleForm>
-        <TextInput source="name" validate={required()} />
-      </SimpleForm>
-    </Create>
-  );
-}
+export const NamedEdit = () => (
+  <Edit actions={<EditActions />}>
+    <SimpleEditForm />
+  </Edit>
+);
+
+export const NamedCreate = () => (
+  <Create actions={<EditActions />}>
+    <SimpleEditForm />
+  </Create>
+);
