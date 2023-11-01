@@ -86,7 +86,7 @@ function TabbedEditForm() {
   const record = useRecordContext();
   if (!longerActionState?.defaultStateIsSet) {
     setLongerActionState({
-      showLongerAction: record.action == 3,
+      showLongerAction: record?.action == 3,
       defaultStateIsSet: true,
     });
   }
