@@ -9,7 +9,7 @@ import { DescriptiveCreate, DescriptiveEdit } from "./Descriptive";
 
 const apiAddress = import.meta.env.VITE_ODATA_ADDRESS
   ? import.meta.env.VITE_ODATA_ADDRESS
-  : "http://localhost/odata";
+  : "https://eldoriantales.com/odata";
 
 export default function App() {
   const [dataProvider, setDataProvider] = useState<OdataDataProvider>();
