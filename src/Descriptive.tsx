@@ -1,7 +1,7 @@
 import { Edit, TextInput, required, Create, SimpleForm } from "react-admin";
 
-import { RichTextInput } from "ra-input-rich-text";
 import { EditActions } from "./Actions";
+import RichTextInput from "./textEditor";
 
 const SimpleFormEdit = () => (
   <SimpleForm>

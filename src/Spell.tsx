@@ -1,4 +1,3 @@
-import { RichTextInput } from "ra-input-rich-text";
 import { useState } from "react";
 import {
   List,
@@ -25,6 +24,7 @@ import {
 
 import { EditActions, SearchFilter } from "./Actions";
 import { Chip } from "@mui/material";
+import RichTextInput from "./textEditor";
 
 export const SpellList = () => (
   <List
