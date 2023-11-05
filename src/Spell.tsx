@@ -56,7 +56,7 @@ export const SpellList = () => (
               i == "0" ? "Arcane" : i == "1" ? "Divine" : "Primal"
             )
             .sort()
-            .map((str: string) => <Chip label={str} />);
+            .map((str: string) => <Chip key={str} label={str} />);
         }}
       />
       {/* <TextField source="savingThrow" /> */}
