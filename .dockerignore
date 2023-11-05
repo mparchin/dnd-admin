@@ -8,3 +8,4 @@ appsettings*
 .git*
 *.sh
 Dockerfile
+node_modules/
