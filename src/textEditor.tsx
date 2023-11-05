@@ -1,6 +1,6 @@
 import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { useInput, required } from "react-admin";
+import { useInput } from "react-admin";
+import Editor from "ckeditor5-custom-build/build/ckeditor";
 
 export default function RichTextInput(props: any) {
   const { onChange, onBlur, onReady, onFocus, label, ...rest } = props;
@@ -22,10 +22,8 @@ export default function RichTextInput(props: any) {
       <caption>{field.name}:</caption>
       <CKEditor
         data={field.value}
-        onChange={(event, editor: ClassicEditor) =>
-          field.onChange(editor.getData())
-        }
-        editor={ClassicEditor}
+        onChange={(event, editor: Editor) => field.onChange(editor.getData())}
+        editor={Editor}
         {...rest}
       ></CKEditor>
     </div>
