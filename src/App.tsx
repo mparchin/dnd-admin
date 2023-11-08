@@ -1,11 +1,25 @@
-import { Admin, Resource, Loading } from "react-admin";
+import {
+  Admin,
+  Resource,
+  Loading,
+  ListGuesser,
+  EditGuesser,
+} from "react-admin";
 import odataProvider, { OdataDataProvider } from "ra-data-odata-server";
 
 import { SpellCreate, SpellEdit, SpellList } from "./Spell";
 import { useEffect, useState } from "react";
-import { MenuBook, School, Accessible, Tag, Class } from "@mui/icons-material";
+import {
+  MenuBook,
+  School,
+  Accessible,
+  Tag,
+  Class,
+  Details,
+} from "@mui/icons-material";
 import { NamedCreate, NamedEdit, NamedList } from "./Named";
 import { DescriptiveCreate, DescriptiveEdit } from "./Descriptive";
+import { FeatureCreate, FeatureEdit, FeatureList } from "./Feature";
 
 const apiAddress = import.meta.env.VITE_ODATA_ADDRESS
   ? import.meta.env.VITE_ODATA_ADDRESS
@@ -34,6 +48,20 @@ export default function App() {
               icon={MenuBook}
             />
           );
+        if (r == "Features")
+          return (
+            <Resource
+              key={r}
+              name={r}
+              list={FeatureList}
+              edit={FeatureEdit}
+              hasCreate={true}
+              create={FeatureCreate}
+              hasShow={false}
+              icon={Details}
+            />
+          );
+
         return (
           <Resource
             key={r}
