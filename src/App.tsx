@@ -1,10 +1,4 @@
-import {
-  Admin,
-  Resource,
-  Loading,
-  ListGuesser,
-  EditGuesser,
-} from "react-admin";
+import { Admin, Resource, Loading } from "react-admin";
 import odataProvider, { OdataDataProvider } from "ra-data-odata-server";
 
 import { SpellCreate, SpellEdit, SpellList } from "./Spell";
@@ -16,10 +10,12 @@ import {
   Tag,
   Class,
   Details,
+  MilitaryTech,
 } from "@mui/icons-material";
 import { NamedCreate, NamedEdit, NamedList } from "./Named";
 import { DescriptiveCreate, DescriptiveEdit } from "./Descriptive";
 import { FeatureCreate, FeatureEdit, FeatureList } from "./Feature";
+import { FeatCreate, FeatEdit, FeatList } from "./Feat";
 
 const apiAddress = import.meta.env.VITE_ODATA_ADDRESS
   ? import.meta.env.VITE_ODATA_ADDRESS
@@ -59,6 +55,20 @@ export default function App() {
               create={FeatureCreate}
               hasShow={false}
               icon={Details}
+            />
+          );
+
+        if (r == "Feats")
+          return (
+            <Resource
+              key={r}
+              name={r}
+              list={FeatList}
+              edit={FeatEdit}
+              hasCreate={true}
+              create={FeatCreate}
+              hasShow={false}
+              icon={MilitaryTech}
             />
           );
 
