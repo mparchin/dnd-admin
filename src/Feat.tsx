@@ -24,6 +24,7 @@ export const FeatList = () => (
       <TextField source="name" />
       <NumberField source="level" />
       <TextField source="prerequisite" />
+      <TextField source="repeatable" />
     </Datagrid>
   </List>
 );
@@ -34,6 +35,7 @@ function SimpleEditForm() {
       <TextInput source="name" validate={required()} />
       <NumberInput source="level" min={1} max={20} validate={required()} />
       <TextInput source="prerequisite" />
+      <TextInput source="repeatable" />
 
       <RichTextInput source="description" validate={required()} />
     </SimpleForm>
