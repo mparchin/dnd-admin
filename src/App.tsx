@@ -11,11 +11,13 @@ import {
   Class,
   Details,
   MilitaryTech,
+  Gavel,
 } from "@mui/icons-material";
 import { NamedCreate, NamedEdit, NamedList } from "./Named";
 import { DescriptiveCreate, DescriptiveEdit } from "./Descriptive";
 import { FeatureCreate, FeatureEdit, FeatureList } from "./Feature";
 import { FeatCreate, FeatEdit, FeatList } from "./Feat";
+import { RuleCreate, RuleEdit, RuleList } from "./rule";
 
 const apiAddress = import.meta.env.VITE_ODATA_ADDRESS
   ? import.meta.env.VITE_ODATA_ADDRESS
@@ -69,6 +71,20 @@ export default function App() {
               create={FeatCreate}
               hasShow={false}
               icon={MilitaryTech}
+            />
+          );
+
+        if (r == "Rules")
+          return (
+            <Resource
+              key={r}
+              name={r}
+              list={RuleList}
+              edit={RuleEdit}
+              hasCreate={true}
+              create={RuleCreate}
+              hasShow={false}
+              icon={Gavel}
             />
           );
 
