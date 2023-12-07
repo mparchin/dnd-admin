@@ -18,7 +18,6 @@ export const authProvider: AuthProvider = {
         return response.json();
       })
       .then((auth) => {
-        console.warn(auth);
         localStorage.setItem("auth", auth.token);
         return auth;
       })
