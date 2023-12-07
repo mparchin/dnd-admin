@@ -25,11 +25,7 @@ const apiAddress = import.meta.env.VITE_ODATA_ADDRESS
   : "https://eldoriantales.com/odata";
 
 function getAccessToken(): Promise<string | null> {
-  return authProvider.checkAuth("").then(() => {
-    var auth = localStorage.getItem("auth");
-    console.warn("used auth: " + auth);
-    return auth;
-  });
+  return authProvider.checkAuth("").then(() => localStorage.getItem("auth"));
 }
 
 export default function App() {
