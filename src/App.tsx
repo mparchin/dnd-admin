@@ -1,4 +1,4 @@
-import { Admin, Resource, Loading } from "react-admin";
+import { Admin, Resource } from "react-admin";
 import odataProvider, { OdataDataProvider } from "ra-data-odata-server";
 
 import { SpellCreate, SpellEdit, SpellList } from "./Spell";
@@ -18,102 +18,127 @@ import { DescriptiveCreate, DescriptiveEdit } from "./Descriptive";
 import { FeatureCreate, FeatureEdit, FeatureList } from "./Feature";
 import { FeatCreate, FeatEdit, FeatList } from "./Feat";
 import { RuleCreate, RuleEdit, RuleList } from "./rule";
+import { authProvider } from "./authProvider";
 
 const apiAddress = import.meta.env.VITE_ODATA_ADDRESS
   ? import.meta.env.VITE_ODATA_ADDRESS
   : "https://eldoriantales.com/odata";
 
+function getAccessToken(): Promise<string | null> {
+  return authProvider.checkAuth("").then(() => {
+    var auth = localStorage.getItem("auth");
+    console.warn("used auth: " + auth);
+    return auth;
+  });
+}
+
 export default function App() {
   const [dataProvider, setDataProvider] = useState<OdataDataProvider>();
+  const [accessToken, setAccessToken] = useState<string>();
+  getAccessToken().then((token) =>
+    token ? setAccessToken(token) : setAccessToken("")
+  );
+
   useEffect(() => {
-    odataProvider(apiAddress).then((p) => setDataProvider(p));
+    odataProvider(apiAddress, () => {
+      return getAccessToken().then((token) => ({
+        commonHeaders: {
+          Authorization: "Bearer " + token,
+        },
+      }));
+    }).then((p) => setDataProvider(p));
     return () => {};
-  }, []);
+  }, [accessToken]);
 
-  return dataProvider ? (
-    <Admin dataProvider={dataProvider}>
-      {dataProvider?.getResources().map((r) => {
-        if (r == "Spells")
-          return (
-            <Resource
-              key={r}
-              name={r}
-              list={SpellList}
-              edit={SpellEdit}
-              hasCreate={true}
-              create={SpellCreate}
-              hasShow={false}
-              icon={MenuBook}
-            />
-          );
-        if (r == "Features")
-          return (
-            <Resource
-              key={r}
-              name={r}
-              list={FeatureList}
-              edit={FeatureEdit}
-              hasCreate={true}
-              create={FeatureCreate}
-              hasShow={false}
-              icon={Details}
-            />
-          );
+  return (
+    <Admin dataProvider={dataProvider} authProvider={authProvider}>
+      <Resource
+        key="Classes"
+        name="Classes"
+        recordRepresentation={(record) => record.name}
+        list={NamedList}
+        hasShow={false}
+        edit={NamedEdit}
+        hasCreate={true}
+        create={NamedCreate}
+        icon={Class}
+      />
+      <Resource
+        key="Conditions"
+        name="Conditions"
+        recordRepresentation={(record) => record.name}
+        list={NamedList}
+        hasShow={false}
+        edit={DescriptiveEdit}
+        hasCreate={true}
+        create={DescriptiveCreate}
+        icon={Accessible}
+      />
+      <Resource
+        key="Schools"
+        name="Schools"
+        recordRepresentation={(record) => record.name}
+        list={NamedList}
+        hasShow={false}
+        edit={NamedEdit}
+        hasCreate={true}
+        create={NamedCreate}
+        icon={School}
+      />
 
-        if (r == "Feats")
-          return (
-            <Resource
-              key={r}
-              name={r}
-              list={FeatList}
-              edit={FeatEdit}
-              hasCreate={true}
-              create={FeatCreate}
-              hasShow={false}
-              icon={MilitaryTech}
-            />
-          );
+      <Resource
+        key="SpellTags"
+        name="SpellTags"
+        recordRepresentation={(record) => record.name}
+        list={NamedList}
+        hasShow={false}
+        edit={NamedEdit}
+        hasCreate={true}
+        create={NamedCreate}
+        icon={Tag}
+      />
 
-        if (r == "Rules")
-          return (
-            <Resource
-              key={r}
-              name={r}
-              list={RuleList}
-              edit={RuleEdit}
-              hasCreate={true}
-              create={RuleCreate}
-              hasShow={false}
-              icon={Gavel}
-            />
-          );
+      <Resource
+        key="Spells"
+        name="Spells"
+        list={SpellList}
+        edit={SpellEdit}
+        hasCreate={true}
+        create={SpellCreate}
+        hasShow={false}
+        icon={MenuBook}
+      />
+      <Resource
+        key="Features"
+        name="Features"
+        list={FeatureList}
+        edit={FeatureEdit}
+        hasCreate={true}
+        create={FeatureCreate}
+        hasShow={false}
+        icon={Details}
+      />
+      <Resource
+        key="Feats"
+        name="Feats"
+        list={FeatList}
+        edit={FeatEdit}
+        hasCreate={true}
+        create={FeatCreate}
+        hasShow={false}
+        icon={MilitaryTech}
+      />
 
-        return (
-          <Resource
-            key={r}
-            name={r}
-            recordRepresentation={(record) => record.name}
-            list={NamedList}
-            hasShow={false}
-            edit={r == "Conditions" ? DescriptiveEdit : NamedEdit}
-            hasCreate={true}
-            create={r == "Conditions" ? DescriptiveCreate : NamedCreate}
-            icon={
-              r == "Schools"
-                ? School
-                : r == "Conditions"
-                ? Accessible
-                : r == "SpellTags"
-                ? Tag
-                : r == "Classes"
-                ? Class
-                : MenuBook
-            }
-          />
-        );
-      })}
+      <Resource
+        key="Rules"
+        name="Rules"
+        list={RuleList}
+        edit={RuleEdit}
+        hasCreate={true}
+        create={RuleCreate}
+        hasShow={false}
+        icon={Gavel}
+      />
     </Admin>
-  ) : (
-    <Loading />
   );
 }
