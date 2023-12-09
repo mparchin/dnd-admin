@@ -1,4 +1,4 @@
-import { Admin, Resource } from "react-admin";
+import { Admin, Resource, useAuthState } from "react-admin";
 import odataProvider, { OdataDataProvider } from "ra-data-odata-server";
 
 import { SpellCreate, SpellEdit, SpellList } from "./Spell";
@@ -24,27 +24,26 @@ const apiAddress = import.meta.env.VITE_ODATA_ADDRESS
   ? import.meta.env.VITE_ODATA_ADDRESS
   : "https://eldoriantales.com/odata";
 
-function getAccessToken(): Promise<string | null> {
-  return authProvider.checkAuth("").then(() => localStorage.getItem("auth"));
+function getAccessToken(): Promise<string> {
+  return authProvider
+    .checkAuth("")
+    .then(() => localStorage.getItem("auth") ?? "")
+    .catch(() => "");
 }
 
 export default function App() {
   const [dataProvider, setDataProvider] = useState<OdataDataProvider>();
-  const [accessToken, setAccessToken] = useState<string>();
-  getAccessToken().then((token) =>
-    token ? setAccessToken(token) : setAccessToken("")
-  );
 
   useEffect(() => {
     odataProvider(apiAddress, () => {
       return getAccessToken().then((token) => ({
         commonHeaders: {
-          Authorization: "Bearer " + token,
+          Authorization: "Bearer " + localStorage.getItem("auth") ?? "",
         },
       }));
     }).then((p) => setDataProvider(p));
     return () => {};
-  }, [accessToken]);
+  }, []);
 
   return (
     <Admin dataProvider={dataProvider} authProvider={authProvider}>

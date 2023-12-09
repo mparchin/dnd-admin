@@ -19,7 +19,7 @@ export const authProvider: AuthProvider = {
       })
       .then((auth) => {
         localStorage.setItem("auth", auth.token);
-        return auth;
+        return auth.token;
       })
       .catch(() => {
         throw new Error("Network error");
