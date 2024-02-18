@@ -12,6 +12,8 @@ import {
   AutocompleteInput,
   Create,
   SimpleForm,
+  BooleanField,
+  BooleanInput,
 } from "react-admin";
 
 import { EditActions, SearchFilter } from "./Actions";
@@ -29,6 +31,7 @@ export const FeatureList = () => (
         <TextField source="name" />
       </ReferenceField>
       <TextField source="subclass" />
+      <BooleanField source="isDetails" />
       <NumberField source="level" />
       <NumberField source="order" />
     </Datagrid>
@@ -41,6 +44,7 @@ function SimpleEditForm() {
       <TextInput source="name" validate={required()} />
       <NumberInput source="level" min={0} max={20} validate={required()} />
       <NumberInput source="order" min={1} max={20} />
+      <BooleanInput source="isDetails" />
       <TextInput source="subclass" />
 
       <ReferenceInput
