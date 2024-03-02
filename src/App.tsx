@@ -19,6 +19,7 @@ import { FeatureCreate, FeatureEdit, FeatureList } from "./Feature";
 import { FeatCreate, FeatEdit, FeatList } from "./Feat";
 import { RuleCreate, RuleEdit, RuleList } from "./rule";
 import { authProvider } from "./authProvider";
+import { ClassCreate, ClassEdit, ClassList } from "./Class";
 
 const apiAddress = import.meta.env.VITE_ODATA_ADDRESS
   ? import.meta.env.VITE_ODATA_ADDRESS
@@ -51,11 +52,11 @@ export default function App() {
         key="Classes"
         name="Classes"
         recordRepresentation={(record) => record.name}
-        list={NamedList}
+        list={ClassList}
         hasShow={false}
-        edit={NamedEdit}
+        edit={ClassEdit}
         hasCreate={true}
-        create={NamedCreate}
+        create={ClassCreate}
         icon={Class}
       />
       <Resource
