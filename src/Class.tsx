@@ -26,6 +26,8 @@ export const ClassList = () => (
       <TextField source="name" />
       <NumberField source="hitDie" />
       <TextField source="proficiencyBonous" />
+      <TextField source="casterSubClassName" />
+      <TextField source="manaPerLevel" />
     </Datagrid>
   </List>
 );
@@ -35,6 +37,8 @@ const SimpleEditForm = () => (
     <TextInput source="name" validate={required()} />
     <NumberInput source="hitDie" validate={required()} />
     <TextInput source="proficiencyBonous" validate={required()} />
+    <TextInput source="manaPerLevel" validate={required()} />
+    <TextInput source="casterSubClassName" />
   </SimpleForm>
 );
 
