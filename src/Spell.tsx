@@ -193,6 +193,7 @@ function TabbedEditForm() {
         <ReferenceArrayInput source="spellTagIds" reference="SpellTags">
           <AutocompleteArrayInput optionText="name" optionValue="id" />
         </ReferenceArrayInput>
+        <TextInput source="damageFormula" />
       </TabbedForm.Tab>
     </TabbedForm>
   );
