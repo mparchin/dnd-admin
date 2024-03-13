@@ -12,6 +12,7 @@ import {
   Details,
   MilitaryTech,
   Gavel,
+  AutoFixHigh,
 } from "@mui/icons-material";
 import { NamedCreate, NamedEdit, NamedList } from "./Named";
 import { DescriptiveCreate, DescriptiveEdit } from "./Descriptive";
@@ -20,6 +21,7 @@ import { FeatCreate, FeatEdit, FeatList } from "./Feat";
 import { RuleCreate, RuleEdit, RuleList } from "./rule";
 import { authProvider } from "./authProvider";
 import { ClassCreate, ClassEdit, ClassList } from "./Class";
+import { ItemCreate, ItemEdit, ItemList } from "./item";
 
 const apiAddress = import.meta.env.VITE_ODATA_ADDRESS
   ? import.meta.env.VITE_ODATA_ADDRESS
@@ -134,6 +136,17 @@ export default function App() {
         create={RuleCreate}
         hasShow={false}
         icon={Gavel}
+      />
+
+      <Resource
+        key="Items"
+        name="Items"
+        list={ItemList}
+        edit={ItemEdit}
+        hasCreate={true}
+        create={ItemCreate}
+        hasShow={false}
+        icon={AutoFixHigh}
       />
     </Admin>
   );
