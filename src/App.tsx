@@ -13,6 +13,8 @@ import {
   MilitaryTech,
   Gavel,
   AutoFixHigh,
+  People,
+  ChildFriendly,
 } from "@mui/icons-material";
 import { NamedCreate, NamedEdit, NamedList } from "./Named";
 import { DescriptiveCreate, DescriptiveEdit } from "./Descriptive";
@@ -22,6 +24,8 @@ import { RuleCreate, RuleEdit, RuleList } from "./rule";
 import { authProvider } from "./authProvider";
 import { ClassCreate, ClassEdit, ClassList } from "./Class";
 import { ItemCreate, ItemEdit, ItemList } from "./item";
+import { RaceCreate, RaceEdit, RaceList } from "./race";
+import { BackgroundCreate, BackgroundEdit, BackgroundList } from "./background";
 
 const apiAddress = import.meta.env.VITE_ODATA_ADDRESS
   ? import.meta.env.VITE_ODATA_ADDRESS
@@ -147,6 +151,28 @@ export default function App() {
         create={ItemCreate}
         hasShow={false}
         icon={AutoFixHigh}
+      />
+
+      <Resource
+        key="Races"
+        name="Races"
+        list={RaceList}
+        edit={RaceEdit}
+        hasCreate={true}
+        create={RaceCreate}
+        hasShow={false}
+        icon={People}
+      />
+
+      <Resource
+        key="Backgrounds"
+        name="Backgrounds"
+        list={BackgroundList}
+        edit={BackgroundEdit}
+        hasCreate={true}
+        create={BackgroundCreate}
+        hasShow={false}
+        icon={ChildFriendly}
       />
     </Admin>
   );
